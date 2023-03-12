@@ -51,7 +51,7 @@ return outHtml
 // submit form  -------------------------------------------------------------------
 function submitForm(data,isComing) {
   // make request
-  const url = 'https://script.google.com/macros/s/AKfycbzy6CffDZo1nk3vfOMLWCCEUZOmpRIqKZ5r13Tr0ZAVxAKjn2l7-p_Eud9sklPgE8-L/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbygC6IgyI5iS0BxbPRd7hTItrtU6wua6BZ8lML5dAqVOwA567fNP4WZbHyB6h2ldBvx/exec';
   const xhr = new XMLHttpRequest();
   xhr.open('POST', url);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -203,7 +203,7 @@ function createPage1(whosInvited) {
     endError(); return; // for our wedding each invite has max 2 people
   }
 
-  var outStr = "<div id='rsvp-page1'>Great! We found your reservation.<br/><br/>";
+  var outStr = "<div id='rsvp-page1'>Great! We found your invitation.<br/><br/>";
 
   outStr = outStr + "<div id='output'></div>"; // where error messages will go
 
@@ -314,7 +314,7 @@ document.getElementById('form').addEventListener('submit', function(event) {
     event.preventDefault();
     var name = this.elements.name.value;
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://script.google.com/macros/s/AKfycbzy6CffDZo1nk3vfOMLWCCEUZOmpRIqKZ5r13Tr0ZAVxAKjn2l7-p_Eud9sklPgE8-L/exec?name=' + name, true);
+    xhr.open('GET', 'https://script.google.com/macros/s/AKfycbygC6IgyI5iS0BxbPRd7hTItrtU6wua6BZ8lML5dAqVOwA567fNP4WZbHyB6h2ldBvx/exec?name=' + name, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
         var idAndNames = xhr.responseText;
