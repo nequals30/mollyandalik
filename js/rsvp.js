@@ -107,8 +107,10 @@ function createPage2(data,names) {
   "</div></div>" // button, id pag 2;
 
   $("#rsvp-page1").replaceWith(outStr);
+  $(document).ready(function() {
+    window.scrollTo({ top: 0 });
+  });
 
-  
   // submit button on page 2
   $(document).on("click", "#third-button", function() {
 
