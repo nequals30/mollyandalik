@@ -1,5 +1,4 @@
 /* todo
-* email forwarding
 * loading spinner for validation button and submission button
 * page 1: automatically select 'yes' in radio buttons if a checkbox is checked
 */
