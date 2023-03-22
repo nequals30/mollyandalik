@@ -112,6 +112,8 @@ function createPage2(data,names) {
 
   // submit button on page 2
   $(document).on("click", "#third-button", function() {
+    // to prevent users from clicking on it multiple times
+    document.getElementById('third-button').disabled = true;
 
     // read the user's inputs
     data.nKids = $("#kids").val();
