@@ -92,6 +92,14 @@ function createPage2(data,names) {
     "</div></div>"; // field, box
   }
 
+  outStr = outStr + '<article class="message">' +
+    '<div class="message-header"><p>Food Options</p></div>' + 
+    '<div class="message-body">' +
+    '<ul><li><strong>Chicken</strong> - Bistro roasted chicken, thyme au jus</li>' +
+    '<li><strong>Fish</strong> - Mustard & ginger glazed salmon</li>' +
+    '<li><strong>Veg/Vegan</strong> - Herb gnocchi, arugula pesto, spring pea tendrils</li></ul>' +
+    '</div></article><br/>';
+
   // write food cards
   if (data.p1_notComing=="0"){
     outStr = outStr + help_makeFoodCard(data.person1,1);
@@ -319,7 +327,6 @@ document.getElementById('form').addEventListener('submit', function(event) {
     xhr.onreadystatechange = function() {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
         var idAndNames = xhr.responseText;
-        console.debug(idAndNames);
         if (idAndNames === "Name not found") {
           document.getElementById('output').innerHTML = `<div class='notification is-danger'>
              Couldn't find that name. Please use the first and last name exactly as it appears on the invitation.
