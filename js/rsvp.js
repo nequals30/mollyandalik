@@ -109,9 +109,11 @@ function createPage2(data,names) {
   }
 
   outStr = outStr + 
-  "<div class='buttons is-centered'>" +
-    "<button id='third-button' type='submit' class='button is-link is-medium'>RSVP!</button>" +
-  "</div></div>" // button, id pag 2;
+  "<div class='buttons is-centered' style='flex-direction: column;'>" +
+    "<div><button id='third-button' type='submit' class='button is-link is-medium'>RSVP!</button></div>" +
+  "<div id='timeWarning' style='font-size: small; color: gray;'></div></div>"; // button;
+
+  outStr = outStr + '</div>'; //id pag 2
 
   $("#rsvp-page1").replaceWith(outStr);
   $(document).ready(function() {
@@ -120,6 +122,10 @@ function createPage2(data,names) {
 
   // submit button on page 2
   $(document).on("click", "#third-button", function() {
+    document.getElementById('timeWarning').innerHTML = "(This may take a few seconds)";
+    document.getElementById('output').innerHTML = "";
+    document.getElementById('third-button').classList.add('is-loading');
+
     // to prevent users from clicking on it multiple times
     document.getElementById('third-button').disabled = true;
 
@@ -138,6 +144,9 @@ function createPage2(data,names) {
     if ((data.p1_foodChoice=="Select...")||(data.p2_foodChoice=="Select...")){
       document.getElementById('output').innerHTML = `<div class='notification is-danger'>Please make a food selection for each guest.</div>`;
        window.scrollTo({ top: 0 });;
+       document.getElementById('timeWarning').innerHTML = "";
+       document.getElementById('third-button').disabled = false;
+       document.getElementById('third-button').classList.remove('is-loading');
        return;
     };
 
@@ -146,6 +155,9 @@ function createPage2(data,names) {
       document.getElementById('output').innerHTML = `
       <div class='notification is-danger'>For guests with 'Other' food choice, please specify more detail.</div>`;
        window.scrollTo({ top: 0 });;
+       document.getElementById('timeWarning').innerHTML = "";
+       document.getElementById('third-button').disabled = false;
+       document.getElementById('third-button').classList.remove('is-loading');
        return;
     };
     // submit form
@@ -320,22 +332,28 @@ function createPage1(whosInvited) {
 
 // initial logic of the form  -------------------------------------------------------------------
 document.getElementById('form').addEventListener('submit', function(event) {
+  document.getElementById('timeWarning').innerHTML = "(This may take a few seconds)";
+  document.getElementById('output').innerHTML = "";
+  document.getElementById('submit-btn').classList.add('is-loading');
     event.preventDefault();
     var name = this.elements.name.value;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://script.google.com/macros/s/AKfycbygC6IgyI5iS0BxbPRd7hTItrtU6wua6BZ8lML5dAqVOwA567fNP4WZbHyB6h2ldBvx/exec?name=' + name, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        document.getElementById('submit-btn').classList.remove('is-loading');
         var idAndNames = xhr.responseText;
         if (idAndNames === "Name not found") {
           document.getElementById('output').innerHTML = `<div class='notification is-danger'>
              Couldn't find that name. Please use the first and last name exactly as it appears on the invitation.
              If there is more than one name on the invitation, please enter ONE of them.
              </div>`;
+             document.getElementById('timeWarning').innerHTML = "";
         } else if (idAndNames === "Already RSVPd"){
           document.getElementById('output').innerHTML = `<div class='notification is-danger'>
               We already have an RSVP for your name! If that seems wrong, please contact Molly and Alik at mollyandalik@gmail.com, or send them a text!
              </div>`;
+             document.getElementById('timeWarning').innerHTML = "";
         } else {
           createPage1(idAndNames)
         }
